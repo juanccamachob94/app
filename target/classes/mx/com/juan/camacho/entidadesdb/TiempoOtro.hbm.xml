@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/10/2018 11:28:18 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="mx.com.juan.camacho.entidadesdb.TiempoOtro" table="tiempo_otro" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="userapp" class="mx.com.juan.camacho.entidadesdb.Userapp" fetch="select">
+            <column name="userapp_id" not-null="true" />
+        </many-to-one>
+        <property name="prueba" type="string">
+            <column name="prueba" length="150" not-null="true" />
+        </property>
+        <property name="FInicio" type="timestamp">
+            <column name="f_inicio" length="29" not-null="true" />
+        </property>
+        <property name="FFin" type="timestamp">
+            <column name="f_fin" length="29" />
+        </property>
+    </class>
+</hibernate-mapping>

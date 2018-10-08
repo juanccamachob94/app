@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:cl="comprensionlectora/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!-- Característica responsiva -->
+        <meta name="viewport" content="width=device-width"/>
+        <h:outputStylesheet name="css/main.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <h:outputScript library="javax.faces" name="jsf.js" target="head" />
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+        <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+        <h:outputScript name="./js/main.js"/>
+        <!--link rel="shortcut icon" href="../../../favicon.ico"-->
+        <title>Comprensión lectora</title>
+    </h:head>
+    <h:body>
+    
+    <div id="contenido" style="margin-top:50px">
+    	<f:event type="preRenderView" listener="#{generalVistaBean.permitirAcceso()}"/>
+    	<h:form enctype="multipart/form-data">
+           <h1>Registro</h1>
+	   	   <p:messages id="messages" showDetail="true" closable="true"/>
+	      <h:panelGrid id="pgRegister" cellpadding="5" columns="3">
+	        <p:outputLabel for="userappname" value="Username:"/>
+	        <p:inputText id="userappname" value="#{registerBean.newUserapp.userappname}" required="true" requiredMessage="El nombre de usuario es requerido"/>
+	        <p:message for="userappname"/>
+
+	        <p:outputLabel for="name" value="Nombre:"/>
+	        <p:inputText id="name" value="#{registerBean.newUserapp.name}" required="true" requiredMessage="El nombre es requerido"/>
+	        <p:message for="name"/>
+
+	        <p:outputLabel for="lastname" value="Apellido:"/>
+	        <p:inputText id="lastname" value="#{registerBean.newUserapp.lastname}" required="true" requiredMessage="El apellido es requerido"/>
+	        <p:message for="lastname"/>
+
+	        <p:outputLabel for="email" value="Email:"/>
+	        <p:inputText id="email" value="#{registerBean.newUserapp.email}" required="true" requiredMessage="La contraseña es requerida"/>
+	        <p:message for="email"/>
+
+	        <p:outputLabel for="sex" value="Sexo:"/>
+	        <p:selectOneRadio id="sex" value="#{registerBean.newUserapp.sex}" required="true" requiredMessage="El sexo es requerido">
+	          <f:selectItem itemLabel="Masculino" itemValue="M" />
+	          <f:selectItem itemLabel="Femenino" itemValue="F" />
+	        </p:selectOneRadio>
+	        <p:message for="sex"/>
+
+	        <p:outputLabel for="password" value="Contraseña:"/>
+	        <p:password id="password" value="#{registerBean.newUserapp.password}" required="true" requiredMessage="La contraseña es requerida"/>
+	        <p:message for="password"/>
+
+	        <p:outputLabel for="confirm_password" value="Repetir contraseña:"/>
+	        <p:password id="confirm_password" value="#{registerBean.confirmPassword}" required="true" requiredMessage="Debe confirmar la contraseña"/>
+	        <p:message for="confirm_password"/>
+
+	        <p:outputLabel for="imagen" value="Imagen de perfil:"/>
+	        <p:fileUpload id="imagen" label="Seleccionar imagen" value="#{registerBean.archivoImagen}" mode="simple" skinSimple="true"/>
+	      </h:panelGrid>
+	      
+	      <h:commandButton id="btnRegister" value="Registrarme" class="btn btn-primary btnh" action="#{registerBean.register()}">
+	      	<f:ajax execute="@form" render="@form" onevent="mostrarCargando('bloqueoPgRegister')"/>
+	      </h:commandButton>
+	      <cl:cargando nombre="bloqueoPgRegister" bloqueo="pgRegister"/>
+    	</h:form>
+
+	</div>
+    </h:body>
+</html>

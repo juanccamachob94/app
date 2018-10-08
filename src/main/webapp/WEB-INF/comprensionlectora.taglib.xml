@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<facelet-taglib>
+	<namespace>comprensionlectora/facelets</namespace>
+	<tag>
+		<tag-name>menu</tag-name>
+		<source>menu.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>enlace</tag-name>
+		<source>enlace.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>encabezadoPaginador</tag-name>
+		<source>encabezadoPaginador.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>enlaceIcono</tag-name>
+		<source>enlaceIcono.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>paginador</tag-name>
+		<source>paginador.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>confirmacion</tag-name>
+		<source>confirmacion.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>piePaginador</tag-name>
+		<source>piePaginador.xhtml</source>
+	</tag>
+	<tag>
+		<tag-name>cargando</tag-name>
+		<source>cargando.xhtml</source>
+	</tag>
+</facelet-taglib>

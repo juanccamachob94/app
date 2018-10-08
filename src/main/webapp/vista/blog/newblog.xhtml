@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:cl="comprensionlectora/facelets"
+      template="../../resources/schemas/main_template.xhtml">
+      <ui:define name="content">
+<script language="JavaScript">
+    window.onbeforeunload = confirmExit;
+    function confirmExit() {
+        return "You have attempted to leave this page. Are you sure?";
+    }
+</script>
+      <h1>Nuevo blog</h1>
+      <h:form id="formNewBlog">
+
+
+        <p:messages id="messages" showDetail="true" closable="true"/>
+        <h:panelGrid id="pgRegister" cellpadding="5" columns="3">
+
+          <p:outputLabel for="title" value="Título:"/>
+          <p:inputText id="title" value="#{newBlogBean.newblog.title}" required="true" requiredMessage="El título del blog es requerido"/>
+          <p:message for="title"/>
+
+          <p:outputLabel for="description" value="Descripción:"/>
+          <h:panelGroup>
+          	<p:inputTextarea id="description" value="#{newBlogBean.newblog.description}" rows="7" style="width:100%" required="true" requiredMessage="La descripción es obligatoria" maxlength="300" counter="contadorDescription" counterTemplate="Quedan {0} caracteres" autoResize="false" />
+          	<h:outputText id="contadorDescription"/>
+
+          </h:panelGroup>
+          <p:message for="description"/>
+
+
+
+          <p:outputLabel for="content2" value="Contenido:"/>
+          <p:editor id="content2" value="#{newBlogBean.newblog.content}" height="700" style="margin-top:15px; margin-bottom:10px" required="true" requiredMessage="El blog debe tener un contenido"/>
+          <p:message for="content2"/>
+
+        <center>
+	        <p:commandButton id="btnPublicar" class="btnPublicar btn btn-primary btn-lg" style="width:300px" value="Publicar" actionListener="#{newBlogBean.crearBlog()}" process="@form" update="@form" onstart="mostrarCargando('bloqueoNewBlog')" oncomplete="ocultarCargando('bloqueoNewBlog')">
+	        	<p:confirm header="Confirmación" message="¿Está seguro de publicar el blog?"/>
+	        </p:commandButton>
+        </center>
+
+        </h:panelGrid>
+        <cl:cargando nombre="bloqueoNewBlog" bloqueo="formNewBlog"/>
+        <cl:confirmacion/>
+
+      </h:form>
+
+    </ui:define>
+</ui:composition>

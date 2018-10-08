@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:cl="comprensionlectora/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!-- Característica responsiva -->
+        <meta name="viewport" content="width=device-width"/>
+        <h:outputStylesheet name="css/main.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <h:outputScript library="javax.faces" name="jsf.js" target="head" />
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+        <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
+        <h:outputScript name="./js/main.js"/>
+        <!--link rel="shortcut icon" href="../../../favicon.ico"-->
+        <title>Comprensión lectora</title>
+    </h:head>
+    <h:body>
+    	<div id="contenido" style="margin-top:50px">
+    	<f:event type="preRenderView" listener="#{generalVistaBean.permitirAcceso()}"/>
+        <f:metadata>
+            <f:viewAction action="#{usuarioBean.cargarUsuario()}"/>
+        </f:metadata>
+        <!-- Formulario de inicio de sesión -->
+	    <h:form id="formIniciarSesion" class="formIniciarSesion">
+	    	<center>
+	    		<h:graphicImage class="logo" value="#{generalBean.saltosDirec}../resources/imgs/logo.jpg" width="269px"/>
+	    	</center>
+		    <h4 style="text-align:center;">
+	        Bienvenido al sistema de comprensión lectora en el que podrás participar en la comunidad con contenidos de cada uno de sus integrantes. Podrás leer y crear tus propios documentos de cualquier tema de interé y además podrás realizar evaluaciones o presentar evaluaciones que otros hayan publicado para identificar tu nivel de comprensión lectora.
+		    </h4>
+		    
+	    	<br/>
+	    	<!-- Panel de inicio de sesión -->
+	    	<p:panel id="panelIniciarSesion" class="panelIniciarSesion" header="Inicio de sesión" style="margin-bottom:2px">
+	    		<h:panelGroup id="pgIniciarSesion">
+	    		<table class="tablasinborde">
+	    			<!-- username -->
+	    			<tr>
+	    				<td class="td-label-login">
+	    					<h:outputLabel for="usuario" value="Usuario:"/>
+	    				</td>
+	    				<td class="td-input-login">
+	    					<p:inputText id="usuario" rendered="#{not empty usuarioBean.userapp}" value="#{usuarioBean.userapp.userappname}" required="true" requiredMessage="usuario obligatorio"/>
+	    				</td>
+	    			</tr>
+	    			<tr>
+	    				<td colspan="2" class="td-mensaje-login">
+	    					<p:message for="usuario" display="tooltip"/>
+	    				</td>
+	    			</tr>
+	    			<!-- contraseña -->
+	    			<tr>
+	    				<td class="td-label-login">
+	    					<h:outputLabel for="password" value="Contraseña:"/>
+	    				</td>
+	    				<td class="td-input-login">
+	    					<p:password id="password" styleClass="password" value="#{usuarioBean.userapp.password}" required="true" requiredMessage="contraseña obligatoria"/>
+	    				</td>
+	    			</tr>
+	    			<tr>
+	    				<td colspan="2" class="td-mensaje-login">
+	    					<p:message for="password" display="tooltip"/>
+	    				</td>
+	    			</tr>
+	    		</table>
+          <p:messages autoUpdate="false" closable="true"/>
+          <br/>
+	    		</h:panelGroup>
+	    	</p:panel>
+			<p:commandButton id="btnIniciarSesion" value="Iniciar sesión" class="btn btn-primary" actionListener="#{usuarioBean.startSession()}" process="@form" update="pgIniciarSesion" onstart="mostrarCargando('bloqueoFormIniciarSesion')" oncomplete="ocultarCargando('bloqueoFormIniciarSesion')"/>
+          <br/>
+          <p:link value="Registrarme" outcome="/vista/register/register"/>
+          <cl:cargando nombre="bloqueoFormIniciarSesion" bloqueo="panelIniciarSesion"/>
+	    </h:form>
+	    </div>
+    </h:body>
+</html>

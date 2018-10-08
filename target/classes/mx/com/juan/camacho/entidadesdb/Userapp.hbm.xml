@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/10/2018 11:28:18 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="mx.com.juan.camacho.entidadesdb.Userapp" table="userapp" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="userappname" type="string">
+            <column name="userappname" length="30" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="200" not-null="true" />
+        </property>
+        <property name="lastname" type="string">
+            <column name="lastname" length="200" not-null="true" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" not-null="true" />
+        </property>
+        <property name="picture" type="string">
+            <column name="picture" />
+        </property>
+        <property name="sex" type="char">
+            <column name="sex" length="1" not-null="true" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="50000" not-null="true" />
+        </property>
+        <set name="userappQuestions" table="userapp_question" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userapp_id" not-null="true" />
+            </key>
+            <one-to-many class="mx.com.juan.camacho.entidadesdb.UserappQuestion" />
+        </set>
+        <set name="blogs" table="blog" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="author_userapp_id" not-null="true" />
+            </key>
+            <one-to-many class="mx.com.juan.camacho.entidadesdb.Blog" />
+        </set>
+        <set name="tiempoOtros" table="tiempo_otro" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="userapp_id" not-null="true" />
+            </key>
+            <one-to-many class="mx.com.juan.camacho.entidadesdb.TiempoOtro" />
+        </set>
+    </class>
+</hibernate-mapping>

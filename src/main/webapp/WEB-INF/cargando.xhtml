@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <ui:composition>
+            <p:blockUI block="#{bloqueo}" widgetVar="#{nombre}">
+            	<p:panel header="CARGANDO">
+            		<center>
+            			<p:progressBar widgetVar="msgCargando" style="width:100%"/>
+            			<br/>
+            			<p style="font-style: oblique">Espera por favor</p>
+            		</center>
+            	</p:panel>
+            </p:blockUI>            
+        </ui:composition>
+    </body>
+</html>

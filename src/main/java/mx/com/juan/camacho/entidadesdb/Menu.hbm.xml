@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/10/2018 11:28:18 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="mx.com.juan.camacho.entidadesdb.Menu" table="menu" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="menu" class="mx.com.juan.camacho.entidadesdb.Menu" fetch="select">
+            <column name="menu_id" />
+        </many-to-one>
+        <property name="name" type="string">
+            <column name="name" length="100" not-null="true" />
+        </property>
+        <property name="page" type="string">
+            <column name="page" length="500" />
+        </property>
+        <property name="icon" type="string">
+            <column name="icon" length="100" not-null="true" />
+        </property>
+        <property name="groupId" type="int">
+            <column name="group_id" not-null="true" />
+        </property>
+        <property name="position" type="int">
+            <column name="position" not-null="true" />
+        </property>
+        <set name="menus" table="menu" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="menu_id" />
+            </key>
+            <one-to-many class="mx.com.juan.camacho.entidadesdb.Menu" />
+        </set>
+    </class>
+</hibernate-mapping>

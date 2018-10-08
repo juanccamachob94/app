@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/10/2018 11:28:18 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="mx.com.juan.camacho.entidadesdb.UserappQuestion" table="userapp_question" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="option" class="mx.com.juan.camacho.entidadesdb.Option" fetch="select">
+            <column name="option_id" />
+        </many-to-one>
+        <many-to-one name="question" class="mx.com.juan.camacho.entidadesdb.Question" fetch="select">
+            <column name="question_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="userapp" class="mx.com.juan.camacho.entidadesdb.Userapp" fetch="select">
+            <column name="userapp_id" not-null="true" />
+        </many-to-one>
+        <property name="answer" type="string">
+            <column name="answer" />
+        </property>
+        <property name="earnedPoints" type="big_decimal">
+            <column name="earned_points" precision="5" />
+        </property>
+        <property name="dateOfGrades" type="date">
+            <column name="date_of_grades" length="13" />
+        </property>
+    </class>
+</hibernate-mapping>

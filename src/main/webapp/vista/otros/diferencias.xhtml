@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:cl="comprensionlectora/facelets"
+      template="../../resources/schemas/main_template.xhtml">
+      <ui:define name="content">
+      	<h1>Encuentra las diferencias</h1>
+      	<h:panelGroup rendered="#{empty diferenciasBean.tiempoOtro.FFin}">
+      		<p style="text-align:justify">Esta prueba consiste en encontrar diferencias entre las dos imágenes. Las diferencias deben ser marcadas en la imagen de la derecha.</p>
+      		<h3>BUENA SUERTE!!</h3>
+      		<h:form>
+      			<p:commandButton value="Iniciar prueba" rendered="#{not diferenciasBean.pruebaIniciada}" actionListener="#{diferenciasBean.iniciarPrueba()}" class="btnh" process="@this" update="@form :formPruebaDiferencias">
+      				<p:confirm header="Confirmación" message="¿Está seguro de iniciar la prueba?"/>
+      			</p:commandButton>
+      			<cl:confirmacion/>
+      		</h:form>
+      	</h:panelGroup>
+
+      	<h:form id="formPruebaDiferencias">
+
+      		<h:panelGroup id="pgNumPalabrasEncontradas">
+      			<p:inputText class="numDiferenciasEncontradas" value="#{diferenciasBean.numDiferenciasEncontradas}" style="display:none"/>
+      			<p:commandButton class="btnNumPalabrasEncontradas" style="display:none" value="" actionListener="#{diferenciasBean.actualizar()}" process="pgNumPalabrasEncontradas" update="pgNumPalabrasEncontradas"/>
+      		</h:panelGroup>
+      		<h:panelGroup id="pgFinalizar">
+      			<p:commandButton class="btnFinalizar"  style="display:none" value="" actionListener="#{diferenciasBean.finalizarPrueba()}" process="pgFinalizar" update="pgFinalizar"/>
+      		</h:panelGroup>
+
+      		<div class="linea"/>
+      		<h:panelGroup rendered="#{diferenciasBean.pruebaIniciada}">
+      			<h3>Tiempo de inicio: #{generalBean.formatearFecha(diferenciasBean.tiempoOtro.FInicio)}</h3>
+      		</h:panelGroup>
+      		<h:panelGroup rendered="#{not empty diferenciasBean.tiempoOtro.FFin}">
+      			<h3>Tiempo de finalización: #{generalBean.formatearFecha(diferenciasBean.tiempoOtro.FFin)}</h3>
+      			<h3>Tiempo de la prueba: #{generalBean.tiempoEntre(diferenciasBean.tiempoOtro.FInicio,diferenciasBean.tiempoOtro.FFin)}</h3>
+      		</h:panelGroup>
+	      	<h:panelGroup rendered="#{diferenciasBean.pruebaIniciada}">
+	      		<div id="canvascontenedor">
+					<canvas id="canvas" width="1211" height="842"></canvas>
+  					<style media="screen">
+				    #canvas {
+				      display: inline-block;
+				      border: solid 1px black;
+				    }
+				    #canvascontenedor {
+				    	overflow:auto;
+				    }
+				    #acciones {
+				      display: inline-block;
+				      vertical-align:top;
+				      font-size: 20px !important;
+				    }
+				  </style>
+				    <script type="text/javascript">
+					  //<![CDATA[
+							function dato(t,n,e,a){this.cx=t,this.cy=n,this.cfx=e,this.cfy=a}var item=0,lista=[new dato(680,55,692,61),new dato(828,98,850,118),new dato(785,246,808,261),new dato(931,245,1062,276),new dato(993,178,1016,205),new dato(846,332,897,373),new dato(1114,479,1168,500)],enc=[],canvas=document.getElementById("canvas"),canvasPos=getOffsetSum(canvas),contexto=canvas.getContext("2d"),imagen=new Image;function enLista(t){for(i=0;i<lista.length;i++)if(dentroDe(lista[i],t))return i;return-1}function enEnc(t){for(i=0;i<enc.length;i++)if(enc[i]==t)return!0;return!1}function dentroDe(t,n){return t.cx<=n.offsetX&&t.cfx>=n.offsetX&&t.cy<=n.offsetY&&t.cfy>=n.offsetY}function getOffsetSum(t){for(var n=0,e=0;t;)n+=parseInt(t.offsetTop),e+=parseInt(t.offsetLeft),t=t.offsetParent;return{top:n,left:e}}function dibujarRectContorno(t,n,e,a,c,i){t.strokeStyle=n,t.beginPath(),t.strokeRect(e,a,c,i),t.closePath()}imagen.src="../../resources/imgs/otros/diferencias.jpg",imagen.onload=function(){contexto.drawImage(imagen,0,0,canvas.width,canvas.height)},canvas.addEventListener("click",function(t){var n=enLista(t);-1==n||enEnc(n)||($(".numDiferenciasEncontradas").val(++item),$(".btnNumPalabrasEncontradas").click(),enc[enc.length]=n,dibujarRectContorno(contexto,"#FF0000",lista[n].cx,lista[n].cy,lista[n].cfx-lista[n].cx,lista[n].cfy-lista[n].cy),7==item&&$(".btnFinalizar").click())});
+					      //]]>
+				    </script>
+				</div>
+	      	</h:panelGroup>
+      	</h:form>
+
+
+
+
+    </ui:define>
+</ui:composition>

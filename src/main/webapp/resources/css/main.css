@@ -1,0 +1,179 @@
+.tablablog, .tablablog tr, .tablablog td {
+	border: solid 1px black;
+}
+.tablablog td {
+	padding:0.5em;
+}
+.formoculto {
+	margin:0;
+}
+body {
+  background: url(../imgs/background.jpg) no-repeat;
+  background-size: cover;
+  font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+  padding: 5px;
+}
+table.ui-selectoneradio tr td {
+	display: block;
+}
+#content span, #content label {
+  font-size: 15px !important;
+}
+/*Por causa de Bootstrap:*/
+label {
+	font-weight:100!important;
+}
+.ui-outputlabel-rfi {
+	color: red !important;
+}
+.btnh {
+	padding: 10px 18px;
+	color:white;
+	font-weight: 300;
+	font-size: 1.1em;
+	border: 1px solid #066697;
+    border-radius: 5px;
+}
+.ui-button {
+	text-shadow:none !important;
+	color:white !important;
+	background-color: #0171AB !important;
+	background-image: none !important;
+	padding-top: 2px !important;
+	padding-bottom: 2px !important;
+}
+
+.btn-primary {
+	background-color: #0171AB !important;
+}
+#top .ui-icon:hover {
+	color: white !important;
+}
+.linea {
+  border-bottom: 2px solid silver;
+}
+.lineaprincipal {
+  border-bottom: 2px solid #026EA6;
+}
+#formNewBlog > table {
+	width: 100%;
+}
+#formNewBlog > table td {
+	display:block;
+}
+
+#contenido_pagina a {
+	color: #448AFF !important;
+	font-weight:100!important;
+}
+.ui-tree {
+	border: none !important;
+}
+
+
+.logo {
+	border: 5px solid #757575;
+    border-radius: 5px;
+
+}
+.logo:hover {
+	box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+.ui-confirm-dialog, .ui-message-dialog {
+	top:20vh !important;
+}
+.ui-column-title {
+	text-shadow:none !important;
+}
+
+.ui-panel-titlebar, .ui-widget-header, .ui-datatable-tablewrapper .ui-state-default {
+background-color: #0171AB !important;
+color: white !important;
+}
+.ui-state-default {
+	background-image: none !important;
+}
+
+
+
+#content {
+	border-radius: 4px;
+	background-color: #FFF;
+	padding: 2em 2em 5em 2em;
+	border: 1px solid #dddddd;
+}
+
+a:link, a:visited {
+  font-weight : bold;
+  text-decoration: none;
+}
+
+a:link:hover, a:visited:hover  {
+  text-decoration : underline;
+}
+
+#top {
+    position: relative;
+    padding: 5px;
+    margin: 0px 0px 10px 0px;
+}
+
+#bottom {
+    position: relative;
+    padding: 5px;
+    margin: 10px 0px 0px 0px;
+}
+
+#left {
+    float: left;
+    width: 20%;
+    margin:0;
+}
+
+.titulo {
+	font-size: 18px;
+}
+.panel-titulo {
+	padding: 10px;
+}
+
+.ui-tree {
+	max-width:100%;
+}
+
+#content {
+    float: right;
+    width: 78%;
+}
+
+#left img {
+	border-radius: 50%;
+	border: solid 2px #757575;
+}
+
+
+.centrado {
+  margin: auto;
+}
+
+.corte {
+	clear:both;
+}
+
+#top .ui-menuitem-link {
+	padding-right: 10px;
+}
+
+#contenido {
+	margin:10px 20px;
+	padding: 1em 1.4em;
+	background: #BDBDBD;
+	opacity: 0.97;
+	filter: alpha(opacity=97);
+	border-radius: 5px;
+	box-shadow: 5px 5px 5px #757575;
+  	background: -webkit-linear-gradient(to right, #FFFFFF, #BDBDBD);
+  	background: linear-gradient(to right, #FFFFFF, #BDBDBD);
+
+}

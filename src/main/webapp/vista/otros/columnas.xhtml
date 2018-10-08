@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:cl="comprensionlectora/facelets"
+      template="../../resources/schemas/main_template.xhtml">
+      <ui:define name="content">
+      	<h1>Encuentra las palabras</h1>
+      	<h:panelGroup rendered="#{empty columnasBean.tiempoOtro.FFin}">
+      		<p style="text-align:justify">Esta prueba consiste en encontrar las palabras de la parte superior en cualquiera de las columnas siguientes, en el menor tiempo posible. Una vez encuentres la palabra, debes dar click sobre ésta.</p>
+      		<h3>BUENA SUERTE!!</h3>
+      		<h:form>
+      			<p:commandButton value="Iniciar prueba" rendered="#{not columnasBean.pruebaIniciada}" actionListener="#{columnasBean.iniciarPrueba()}" class="btnh" process="@this" update="@form :formPruebaEncuentraPalabras">
+      				<p:confirm header="Confirmación" message="¿Está seguro de iniciar la prueba?"/>
+      			</p:commandButton>
+      			<cl:confirmacion/>
+      		</h:form>
+      	</h:panelGroup>
+
+      	<h:form id="formPruebaEncuentraPalabras">
+
+      		<h:panelGroup id="pgNumPalabrasEncontradas">
+      			<p:inputText class="numPalabrasEncontradas" value="#{columnasBean.numPalabrasEncontradas}" style="display:none"/>
+      			<p:commandButton class="btnNumPalabrasEncontradas" style="display:none" value="" actionListener="#{columnasBean.actualizar()}" process="pgNumPalabrasEncontradas" update="pgNumPalabrasEncontradas"/>
+      		</h:panelGroup>
+      		<h:panelGroup id="pgFinalizar">
+      			<p:commandButton class="btnFinalizar"  style="display:none" value="" actionListener="#{columnasBean.finalizarPrueba()}" process="pgFinalizar" update="pgFinalizar"/>
+      		</h:panelGroup>
+
+      		<div class="linea"/>
+      		<h:panelGroup rendered="#{columnasBean.pruebaIniciada}">
+      			<h3>Tiempo de inicio: #{generalBean.formatearFecha(columnasBean.tiempoOtro.FInicio)}</h3>
+      		</h:panelGroup>
+      		<h:panelGroup rendered="#{not empty columnasBean.tiempoOtro.FFin}">
+      			<h3>Tiempo de finalización: #{generalBean.formatearFecha(columnasBean.tiempoOtro.FFin)}</h3>
+      			<h3>Tiempo de la prueba: #{generalBean.tiempoEntre(columnasBean.tiempoOtro.FInicio,columnasBean.tiempoOtro.FFin)}</h3>
+      		</h:panelGroup>
+	      	<h:panelGroup rendered="#{columnasBean.pruebaIniciada}">
+	      		<div>
+					<canvas id="canvas" width="747" height="862"></canvas>
+	    			<div id="acciones">
+	    			</div>
+  					<style media="screen">
+				    #canvas {
+				      display: inline-block;
+				      border: solid 1px black;
+				    }
+				    #acciones {
+				      display: inline-block;
+				      vertical-align:top;
+				      font-size: 20px !important;
+				    }
+				  </style>
+				    <script type="text/javascript">
+					  //<![CDATA[
+function dato(a,e,t,n){this.cx=a,this.cy=e,this.cfx=t,this.cfy=n}var item=0,lista=[new dato(271,173,337,186),new dato(443,270,497,283),new dato(96,299,200,313),new dato(443,556,527,566),new dato(610,648,656,661),new dato(97,490,139,502),new dato(270,521,323,537),new dato(611,838,653,851),new dato(270,363,346,375),new dato(97,648,176,662),new dato(271,712,346,723),new dato(609,174,678,186),new dato(96,775,211,787),new dato(443,585,501,597),new dato(443,366,509,376),new dato(610,299,667,311),new dato(442,838,482,850),new dato(610,459,697,471),new dato(95,205,145,217),new dato(270,269,363,281),new dato(271,838,343,851),new dato(96,395,213,406),new dato(441,143,515,158),new dato(442,713,487,724),new dato(97,555,184,566),new dato(443,458,566,470),new dato(271,616,358,628),new dato(611,555,690,567)],canvas=document.getElementById("canvas"),canvasPos=getOffsetSum(canvas),contexto=canvas.getContext("2d"),imagen=new Image;function dentroDe(a,e){return a.cx<=e.offsetX&&a.cfx>=e.offsetX&&a.cy<=e.offsetY&&a.cfy>=e.offsetY}function getOffsetSum(a){for(var e=0,t=0;a;)e+=parseInt(a.offsetTop),t+=parseInt(a.offsetLeft),a=a.offsetParent;return{top:e,left:t}}function trazarLinea(a,e,t,n,o,s,c){a.beginPath(),a.moveTo(e,t),a.lineTo(n,o),a.lineWidth=s,a.strokeStyle=c,a.stroke(),a.closePath()}function ok(a){var e=-1,t=-1,n=-1;switch(a){case 1:e=10,t=6,n=72;break;case 2:e=10,t=98,n=153;break;case 3:e=10,t=174,n=279;break;case 4:e=10,t=297,n=382;break;case 5:e=10,t=403,n=449;break;case 6:e=10,t=470,n=513;break;case 7:e=10,t=533,n=586;break;case 8:e=10,t=604,n=647;break;case 9:e=10,t=665,n=741;break;case 10:t=e=33,n=102;break;case 11:e=33,t=128,n=203;break;case 12:e=33,t=224,n=291;break;case 13:e=33,t=305,n=419;break;case 14:e=33,t=444,n=504;break;case 15:e=33,t=523,n=589;break;case 16:e=33,t=607,n=663;break;case 17:e=33,t=685,n=727;break;case 18:e=58,t=7,n=91;break;case 19:e=58,t=127,n=176;break;case 20:e=58,t=212,n=302;break;case 21:e=58,t=336,n=409;break;case 22:e=58,t=428,n=545;break;case 23:e=58,t=574,n=644;break;case 24:e=58,t=676,n=722;break;case 25:e=82,t=7,n=94;break;case 26:e=82,t=116,n=240;break;case 27:e=82,t=265,n=349;break;case 28:e=82,t=374,n=454}trazarLinea(contexto,t,e,n,e,3,"#00FF01"),28==a&&$(".btnFinalizar").click()}imagen.src="../../resources/imgs/otros/columnas.png",imagen.onload=function(){contexto.drawImage(imagen,0,0,canvas.width,canvas.height)},canvas.addEventListener("click",function(a){$(".numPalabrasEncontradas").val()==item&&dentroDe(lista[item],a)&&($(".numPalabrasEncontradas").val(++item),$(".btnNumPalabrasEncontradas").click(),ok(item))});
+					      //]]>
+				    </script>
+				</div>
+	      	</h:panelGroup>
+      	</h:form>
+
+
+
+
+    </ui:define>
+</ui:composition>

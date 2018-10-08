@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:cl="comprensionlectora/facelets"
+      template="../../resources/schemas/main_template.xhtml">
+      <ui:define name="content">
+      <f:metadata>
+          <f:viewParam name="idBlog" value="#{viewBlogBean.idBlog}"/>
+      </f:metadata>
+
+      <script>
+      	var selection = '';
+      </script>
+
+        <h:form class="formoculto">
+            <h:inputText value="#{viewBlogBean.textoSeleccionado}" class="input_textoSeleccionado" style="display:none"/>
+            <h:commandButton value="" action="#{viewBlogBean.seleccionarTexto()}" class="btn_envioCadenaSeleccionada" style="display:none">
+                <f:ajax render="pgContenido pgIdeas" execute="@form"/>
+            </h:commandButton>
+            <p:hotkey bind="ctrl+shift+a" update="pgContenido pgIdeas" handler="seleccionarTexto()"/>
+        </h:form>
+        <div class="tituloblog">
+        	<h1 style="display:inline-block;width:60%;vertical-align:bottom;margin-top:0;color:#000066">#{viewBlogBean.blog.title} <h:panelGroup rendered="#{viewBlogBean.blog.userapp.id eq usuarioBean.userappSession.id}"><cl:enlace id="editar" transaccion="blog/editblog" valor="[Editar]" atributo1="idBlog" valor1="#{viewBlogBean.blog.id}"/></h:panelGroup></h1>
+        	<div style="display:inline-block;float:right">
+		      <h4 style="text-align:right"><strong>Fecha de publicación:</strong> #{viewBlogBean.blog.FCreate}</h4>
+		      <h5 style="text-align:right"><strong>Autor:</strong> #{viewBlogBean.blog.userapp.name} #{viewBlogBean.blog.userapp.lastname}</h5>
+        	</div>
+        </div>
+        <div class="corte"/>
+      <div class="lineaprincipal"/>
+      <h3>Descripción:</h3>
+      <p style="text-align:justify">#{viewBlogBean.blog.description}</p>
+      <br/>
+      <div class="linea"/>
+      <h3>Contenido:</h3>
+      <h:panelGroup id="pgContenido">
+      	<h:outputText class="contenido" value="#{viewBlogBean.content}" escape="false"/>
+      <script>
+      function seleccionarTexto() {
+    	  $('.input_textoSeleccionado').val(selection);
+    	  $('.btn_envioCadenaSeleccionada').click();
+      }
+      document.getElementsByClassName('contenido')[0].onmouseup = function () {
+          selection = window.getSelection().toString();
+      }
+      </script>
+      </h:panelGroup>
+      <br/>
+      <br/>
+      <div class="linea"/>
+
+      <h3>Selección de ideas</h3>
+      <p:button value="Seleccionar texto" class="btnSeleccionTexto btn btn-primary" onclick="seleccionarTexto();return false;"/>
+      <h5 style="font-style:italic">También puedes registrar el texto presionando Alt-Shift-a</h5>
+      <div class="corte"/>
+      <h:form id="pgIdeas">
+      <h:panelGroup>
+      	<h:panelGroup rendered="#{not empty viewBlogBean.concepts}">
+        <h4>Ideas seleccionadas:</h4>
+        <ul>
+          <ui:repeat value="#{viewBlogBean.concepts}" var="concept">
+            <li>
+            <span>
+            <span>#{concept}</span>
+            <span>
+				<p:commandLink actionListener="#{viewBlogBean.eliminarConcepto(concept)}" update="pgIdeas pgContenido" process="@this">
+					<h:outputText value="" class="fa fa-remove enlace-tree"/>
+				</p:commandLink>
+            </span>
+            </span>
+            
+            </li>
+          </ui:repeat>
+        </ul>
+        
+          
+        
+        </h:panelGroup>
+      </h:panelGroup>
+      	<p:commandButton value="Dibujar conceptos" rendered="#{not empty viewBlogBean.concepts}" actionListener="#{viewBlogBean.solicitarDiagrama()}" process="@this" update="@form pgDiagrama" class="btnh"/>
+      </h:form>
+      <div class="corte"/>
+      
+      <h:panelGroup id="pgDiagrama">
+      <h:panelGroup rendered="#{not empty diagramBean.concepts}">
+      <br/>
+      <br/>
+      <div class="linea"/>
+
+      <h3>Mindmap:</h3>
+<p:diagram value="#{diagramBean.model}" style="height:70%;width:100%" styleClass="diagrama ui-widget-content otracosa" />
+
+ 
+<style type="text/css">
+    .ui-diagram-element {
+        border:0.1em solid #FCEB01;
+        background-color: white;    
+        width:14em;
+        line-height:4em;
+        text-align: center;
+    }
+</style>      
+</h:panelGroup>
+      </h:panelGroup>
+
+      
+      <br/>
+      <br/>
+      
+      
+      
+      
+      <div class="linea"/>
+      <h:panelGroup id="tests">
+      	<h3>Exámenes:</h3>
+        <span>
+        <table>
+        <tr>
+        <td><cl:enlaceIcono id="nuevoExamen2" target="_blank" icono="ui-icon-plus" transaccion="test/newtest"  atributo1="idBlog" valor1="#{viewBlogBean.blog.id}" rendered="#{blog.userapp.id eq usuarioBean.userappSession.id}" tooltip="Crear examen del blog"/></td>
+        <td><cl:enlace id="nuevoExamen" target="_blank" valor="Nuevo examen" transaccion="test/newtest"  atributo1="idBlog" valor1="#{viewBlogBean.blog.id}" rendered="#{blog.userapp.id eq usuarioBean.userappSession.id}"/></td>
+        </tr>
+        </table>
+        </span>
+        <div class="corte"/>
+        <p:dataTable id="dataTableTests" value="#{viewBlogBean.blog.tests}" var="test" emptyMessage="No hay examenes para este blog">
+          <f:facet name="header">
+            Exámenes asociados a este blog
+          </f:facet>
+          <p:column headerText="Nombre">
+            #{test.name}
+          </p:column>
+          <p:column headerText="Acciones" width="15%">
+            <h:panelGroup id="pgPresentar" style="display:inline-block">
+                <cl:enlaceIcono id="solicitudExamen" transaccion="test/test" icono="ui-icon-document" atributo1="idTest" valor1="#{test.id}" tooltip="Presentar examen"/>
+            </h:panelGroup>
+          </p:column>
+        </p:dataTable>
+        <div class="corte"/>
+
+      </h:panelGroup>
+
+
+    </ui:define>
+</ui:composition>

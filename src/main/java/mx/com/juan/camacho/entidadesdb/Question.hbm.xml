@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2/10/2018 11:28:18 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="mx.com.juan.camacho.entidadesdb.Question" table="question" schema="public" optimistic-lock="version">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="test" class="mx.com.juan.camacho.entidadesdb.Test" fetch="select">
+            <column name="test_id" not-null="true" />
+        </many-to-one>
+        <property name="content" type="string">
+            <column name="content" not-null="true" />
+        </property>
+        <property name="points" type="big_decimal">
+            <column name="points" precision="5" not-null="true" />
+        </property>
+        <property name="FCreate" type="date">
+            <column name="f_create" length="13" />
+        </property>
+        <property name="type" type="string">
+            <column name="type" length="150" not-null="true" />
+        </property>
+        <set name="options" table="option" inverse="true" lazy="true" fetch="select" order-by="random()">
+            <key>
+                <column name="question_id" not-null="true" />
+            </key>
+            <one-to-many class="mx.com.juan.camacho.entidadesdb.Option" />
+        </set>
+        <set name="userappQuestions" table="userapp_question" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="question_id" not-null="true" />
+            </key>
+            <one-to-many class="mx.com.juan.camacho.entidadesdb.UserappQuestion" />
+        </set>
+    </class>
+</hibernate-mapping>

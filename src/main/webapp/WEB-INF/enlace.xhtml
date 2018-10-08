@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <ui:composition>
+        <p:link id="#{id}" outcome="/vista/#{transaccion}" value="#{valor}" target="#{empty target ? '_parent' : target}">
+            <f:param name="#{atributo1}" value="#{valor1}" rendered="#{(not empty atributo1)and(not empty valor1)}"/>
+            <f:param name="#{atributo2}" value="#{valor2}" rendered="#{(not empty atributo2)and(not empty valor2)}"/>
+        </p:link>
+        </ui:composition>
+    </body>
+</html>

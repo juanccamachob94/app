@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:cl="comprensionlectora/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width"/>
+        <h:outputStylesheet name="./css/main.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+        <title>Comprensión lectora</title>
+    </h:head>
+
+    <h:body>
+    <div id="contenido">
+        <f:event type="preRenderView" listener="#{generalVistaBean.denegarAcceso()}"/>
+        <div id="top">
+          <h:graphicImage value="#{generalBean.saltosDirec}../resources/imgs/navbar.png" width="100%"/>
+          <br/>
+          <h:form>
+            <p:menubar>
+              <cl:menu itemsmenu="#{menuBean.itemsmenugroup1}"/>
+              <f:facet name="options">
+                  <p:commandButton class="btn btn-primary" value="Cerrar sesión" action="#{usuarioBean.closeSession()}" style="margin-right:-16px"/>
+              </f:facet>
+            </p:menubar>
+          </h:form>
+        </div>
+        <div id="contenido_pagina">
+            <div id="left">
+            <ui:insert name="left">
+              <div class="perfil">
+                <p:panel id="pPerfil" header="Información del usuario" toggleable="true" closable="false" toggleSpeed="500" style="margin-bottom:20px">
+                <center>
+                <h5>Hola, #{usuarioBean.userappSession.name} #{usuarioBean.userappSession.lastname}</h5>
+                <img id="imagenPerfil" src="#{generalBean.saltosDirec}../resources/imgs/users/#{empty usuarioBean.userappSession.picture? 'basic.png' : usuarioBean.userappSession.picture}" width="70%"/>
+                </center>
+                <div class="corte"/>
+                Exámenes presentados: #{testBean.examenesPresentados}
+                <div class="corte"/>
+                Puntos obtenidos: #{testBean.puntosObtenidos}
+                <br/>
+                </p:panel>
+              </div>
+              <div class="misblogs">
+                <p:panel id="pMisBlogs" header="Mis blogs" toggleable="true" toggleSpeed="500" style="margin-bottom:20px">
+              		<p:tree value="#{blogBean.rootMisBlogs}" var="itemTree" varStatus="variable">
+              			<p:treeNode type="blog" expandedIcon="ui-icon-document" collapsedIcon="ui-icon-document">
+                      		<cl:enlace id="algoarbolpersonalunico" valor="#{itemTree.title}" transaccion="blog/viewblog" atributo1="idBlog" valor1="#{itemTree.id}"/>
+              			</p:treeNode>
+                    <p:treeNode type="month" expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+                      <h:outputText value="#{itemTree}"/>
+              			</p:treeNode>
+                    <p:treeNode type="year" expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+                      <h:outputText value="#{itemTree}"/>
+              			</p:treeNode>
+                    <p:treeNode type="raiz" expandedIcon="ui-icon-folder-open" collapsedIcon="ui-icon-folder-collapsed">
+                      <h:outputText value="#{itemTree}"/>
+              			</p:treeNode>
+              		</p:tree>
+                </p:panel>
+              </div>
+              <div class="ultimos_blogs">
+                <p:panel id="pUltimosBlogs" header="Información del usuario" toggleable="true" closable="false" toggleSpeed="500" style="margin-bottom:20px">
+                <ui:repeat value="#{blogBean.ultimosBlogs}" var="blog" varStatus="estadoBlog">
+                  <div class="ultimoblog">
+                    <p:panel header="#{blog.title}">
+                      <p style="text-align:justify">#{generalBean.subCadena(blog.description,100)}</p>
+                      <h:panelGroup style="font-size:0.8em;float:right">
+                      	<cl:enlace valor="Ver" id="verblogultimosblog" transaccion="blog/viewblog" atributo1="idBlog" valor1="#{blog.id}"/>
+                      </h:panelGroup>
+                      <div class="corte"/>
+                      <h:panelGroup style="font-size:0.8em;float:right">
+                        <cl:enlace id="nombreautor" valor="#{blog.userapp.name} #{blog.userapp.lastname}" transaccion="userapp/viewuserapp" atributo1="idUserapp" valor1="#{blog.userapp.id}"/>
+                      </h:panelGroup>
+                      <div class="corte"/>
+                    </p:panel>
+                  </div>
+                </ui:repeat>
+                </p:panel>
+              </div>
+              </ui:insert>
+            </div>
+            <div id="content">
+                <ui:insert name="content">
+
+                </ui:insert>
+            </div>
+            <div class="corte"/>
+        </div>
+        <div class="corte"/>
+        <div id="bottom">
+            <ui:insert name="bottom">
+              Colegio...
+            </ui:insert>
+        </div>
+        <h:outputScript library="javax.faces" name="jsf.js" target="head"/>
+    		<h:outputScript library="primefaces" name="jquery/jquery.js" target="head"/>
+    		<h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head"/>
+    		<h:outputScript name="./js/main.js"/>
+    		<div class="corte"/>
+    		</div>
+    </h:body>
+
+</html>

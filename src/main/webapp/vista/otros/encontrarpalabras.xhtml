@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:cl="comprensionlectora/facelets"
+      template="../../resources/schemas/main_template.xhtml">
+      <ui:define name="content">
+      	<h1>Encuentra las palabras</h1>
+      	<h:panelGroup rendered="#{empty encontrarPalabrasBean.tiempoOtro.FFin}">
+      		<p style="text-align:justify">Esta prueba consiste en encontrar las palabras que están a la izquierda dentro de los párrafos del lado derecho, en el menor tiempo posible. Una vez encuentres la palabra, debes dar click sobre ésta.</p>
+      		<h3>BUENA SUERTE!!</h3>
+      		<h:form>
+      			<p:commandButton value="Iniciar prueba" rendered="#{not encontrarPalabrasBean.pruebaIniciada}" actionListener="#{encontrarPalabrasBean.iniciarPrueba()}" class="btnh" process="@this" update="@form :formPruebaEncuentraPalabras">
+      				<p:confirm header="Confirmación" message="¿Está seguro de iniciar la prueba?"/>
+      			</p:commandButton>
+      			<cl:confirmacion/>
+      		</h:form>
+      	</h:panelGroup>
+      	
+      	<h:form id="formPruebaEncuentraPalabras">
+      		
+      		<h:panelGroup id="pgNumPalabrasEncontradas">
+      			<p:inputText class="numPalabrasEncontradas" value="#{encontrarPalabrasBean.numPalabrasEncontradas}" style="display:none"/>
+      			<p:commandButton class="btnNumPalabrasEncontradas" style="display:none" value="" actionListener="#{encontrarPalabrasBean.actualizar()}" process="pgNumPalabrasEncontradas" update="pgNumPalabrasEncontradas"/>
+      		</h:panelGroup>      	
+      		<h:panelGroup id="pgFinalizar">
+      			<p:commandButton class="btnFinalizar"  style="display:none" value="" actionListener="#{encontrarPalabrasBean.finalizarPrueba()}" process="pgFinalizar" update="pgFinalizar"/>
+      		</h:panelGroup>     
+      	
+      		<div class="linea"/>
+      		<h:panelGroup rendered="#{encontrarPalabrasBean.pruebaIniciada}">
+      			<h3>Tiempo de inicio: #{generalBean.formatearFecha(encontrarPalabrasBean.tiempoOtro.FInicio)}</h3>
+      		</h:panelGroup>
+      		<h:panelGroup rendered="#{not empty encontrarPalabrasBean.tiempoOtro.FFin}">
+      			<h3>Tiempo de finalización: #{generalBean.formatearFecha(encontrarPalabrasBean.tiempoOtro.FFin)}</h3>
+      			<h3>Tiempo de la prueba: #{generalBean.tiempoEntre(encontrarPalabrasBean.tiempoOtro.FInicio,encontrarPalabrasBean.tiempoOtro.FFin)}</h3>
+      		</h:panelGroup>
+	      	<h:panelGroup rendered="#{encontrarPalabrasBean.pruebaIniciada}">
+	      		<div>
+					<canvas id="canvas" width="829" height="733"></canvas>
+	    			<div id="acciones">
+	    			</div>
+  					<style media="screen">
+				    #canvas {
+				      display: inline-block;
+				      border: solid 1px black;
+				    }
+				    #acciones {
+				      display: inline-block;
+				      vertical-align:top;
+				      font-size: 20px !important;
+				    }
+				  </style>
+				    <script type="text/javascript">
+					  //<![CDATA[
+					      function dato(a,e,t,n){this.cx=a,this.cy=e,this.cfx=t,this.cfy=n}var item=0,lista=[new dato(415,377,497,388),new dato(672,37,744,49),new dato(268,472,379,483),new dato(267,289,344,303),new dato(416,58,492,72),new dato(517,241,588,255),new dato(325,556,440,570),new dato(371,219,454,231),new dato(731,84,815,96),new dato(593,583,705,594),new dato(391,607,483,617),new dato(267,193,364,206),new dato(267,628,379,642),new dato(266,84,338,98),new dato(467,448,565,459),new dato(668,400,741,413),new dato(591,267,649,279),new dato(378,423,503,435),new dato(368,35,437,46),new dato(618,654,711,666)],canvas=document.getElementById("canvas"),canvasPos=getOffsetSum(canvas),contexto=canvas.getContext("2d"),imagen=new Image;function dentroDe(a,e){return a.cx<=e.offsetX&&a.cfx>=e.offsetX&&a.cy<=e.offsetY&&a.cfy>=e.offsetY}function getOffsetSum(a){for(var e=0,t=0;a;)e+=parseInt(a.offsetTop),t+=parseInt(a.offsetLeft),a=a.offsetParent;return{top:e,left:t}}function trazarLinea(a,e,t,n,o,s,c){a.beginPath(),a.moveTo(e,t),a.lineTo(n,o),a.lineWidth=s,a.strokeStyle=c,a.stroke(),a.closePath()}function ok(a){var e=-1;switch(a){case 1:e=22;break;case 2:e=55;break;case 3:e=92;break;case 4:e=130;break;case 5:e=165;break;case 6:e=200;break;case 7:e=239;break;case 8:e=275;break;case 9:e=310;break;case 10:e=347;break;case 11:e=384;break;case 12:e=420;break;case 13:e=455;break;case 14:e=492;break;case 15:e=530;break;case 16:e=565;break;case 17:e=602;break;case 18:e=638;break;case 19:e=675;break;case 20:e=710}trazarLinea(contexto,20,e,150,e,3,"#00FF01"),20==a&&$(".btnFinalizar").click()}imagen.src="../../resources/imgs/otros/encontrarpalabras.png",imagen.onload=function(){contexto.drawImage(imagen,0,0,canvas.width,canvas.height)},canvas.addEventListener("click",function(a){$(".numPalabrasEncontradas").val()==item&&dentroDe(lista[item],a)&&($(".numPalabrasEncontradas").val(++item),$(".btnNumPalabrasEncontradas").click(),ok(item))});
+					      //]]>
+				    </script>
+				</div>
+	      	</h:panelGroup>
+      	</h:form>
+
+      
+      
+	    
+    </ui:define>
+</ui:composition>
