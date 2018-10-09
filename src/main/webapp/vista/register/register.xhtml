@@ -16,11 +16,10 @@
         <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
         <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
         <h:outputScript name="./js/main.js"/>
-        <!--link rel="shortcut icon" href="../../../favicon.ico"-->
         <title>Comprensión lectora</title>
     </h:head>
     <h:body>
-    
+
     <div id="contenido" style="margin-top:50px">
     	<f:event type="preRenderView" listener="#{generalVistaBean.permitirAcceso()}"/>
     	<h:form enctype="multipart/form-data">
@@ -61,7 +60,7 @@
 	        <p:outputLabel for="imagen" value="Imagen de perfil:"/>
 	        <p:fileUpload id="imagen" label="Seleccionar imagen" value="#{registerBean.archivoImagen}" mode="simple" skinSimple="true"/>
 	      </h:panelGrid>
-	      
+
 	      <h:commandButton id="btnRegister" value="Registrarme" class="btn btn-primary btnh" action="#{registerBean.register()}">
 	      	<f:ajax execute="@form" render="@form" onevent="mostrarCargando('bloqueoPgRegister')"/>
 	      </h:commandButton>
