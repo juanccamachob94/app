@@ -85,3 +85,15 @@ El modelo relacional que describe la solución al problema se puede observar en 
 - **Atributos:**
   - STDV: desviación estándar poblacional
   - INVESTMENT_INTERVAL_ID: llave que referencia el ID de la tabla INVESTMENT_INTERVALS para indicar el intervalo de inversiones al que pertenece la desviación estándar.
+  
+### RELACIONES:
+#### UNIT_BONUS -> INVESTMENT_INTERVALS
+Permite a UNIT_BONUS reutilizar los intervalos a los que los STDV pertenecen.
+#### CV_INVESTMENT_INTERVALS -> INVESTMENT_INTERVALS Y CV_INVESTMENT_INTERVALS -> CV_INTERVALS
+Permite la relación N:M entre las tablas CV_INVESTMENT_INTERVALS y CV_INTERVALS
+#### BONUS -> CV_INVESTMENT_INTERVALS
+Permite capturar los datos de bonificación que pertenecen simultáneamente a un intervalo de inversiones y a un intervalo de coeficientes de variación.
+#### INVESTMENT -> USERS
+Relaciona las inversiones con los usuarios que las ejecutan.
+
+   
