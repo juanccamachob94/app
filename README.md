@@ -20,11 +20,12 @@ El servicio `bonus_calculation` resuelve el requerimiento recibiendo el `ID` del
 1. Se calcula el número de inversiones válidas para el usuario. Si el número de inversiones válidas es de 0, no existe bonificación.
 2. Se calcula el promedio de inversión y la desviación estándar.
 3. Se obtiene el intervalo al que corresponde el coeficiente de variación (obtenido de la división entre la desviación estándar y el promedio de inversión) y el intervalo al que corresponde el promedio de inversión
-4. Si no existe un intervalo para el coeficiente de variación (por ejemplo cuando el coeficiente de variación es menor a 0.14 o la desv o cuando la desviación estándar es 0) se reasigna la desviación estándar con los valores predefinidos en la tabla de una sola inversión ([primera tabla](https://docs.google.com/spreadsheets/d/1xGovhmmAhFAbkWAhlaULOZk5QNJoEceSsS4BAal_S2U/edit)) y se reasigna el intervalo del coeficiente de variación a [0.3,1.3)
+4. Si no existe un intervalo para el coeficiente de variación (por ejemplo cuando el coeficiente de variación es menor a 0.14 o la  desviación estándar es 0) se reasigna la desviación estándar con los valores predefinidos en la tabla de una sola inversión ([primera tabla](https://docs.google.com/spreadsheets/d/1xGovhmmAhFAbkWAhlaULOZk5QNJoEceSsS4BAal_S2U/edit)) y se reasigna el intervalo del coeficiente de variación a [0.3,1.3)
 5. Se obtiene los valores para la bonificación a partir de el intervalo de inversiones y el intervalo de coeficientes de variación.
 6. Se calcula la bonificación a partir de los valores de bonificación y la desviación estándar
 
 ### bonus_calculation:
+La lógica desarrollada en este servicio se resuelve principalmente mediante el uso de scopes. El resultado se construye operando los valores mediante un método adicional en el mismo controlador (`ApplicationController`)
 #### Scopes:
 ##### Investment:
 * `valid_user_investments`: inversiones donde la diferencia entre amount y wallet_amount sean mayores a 3000.
@@ -35,6 +36,9 @@ El servicio `bonus_calculation` resuelve el requerimiento recibiendo el `ID` del
 * `get_intervals`: obtiene los intervalos de inversión que contengan en un conjunto cerrado al valor recibido como parámetro o cuyo valor sea menor al valor máximo o mayor al valor mínimo.
 #### CvInteral:
 * `get_intervals`: obtiene los intervalos de coeficientes de variación que contengan en un conjunto cerrado por izquierda y abierto por derecha, (x > min y x <= max) al valor recibido como parámetro o cuyo valor sea menor al valor máximo o mayor al valor mínimo.
+
+### bonus_calculation_alternative:
+En el controlador (`ApplicationController`) se utiliza la función `bonus_calculation` desarrollada en postgres. Se recuerda que esta alternativa se construye con el propósito de minimizar costos de ejecución.
 
 ## Modelo de datos
 El modelo relacional que describe la solución al problema se puede observar en este [enlace](https://drive.google.com/file/d/1hKTG_8SAtIJOQH_FTPUcIFsgNN2c1ulm/preview). A continuación se describe cada una de las tablas, sus atributos y relaciones.
