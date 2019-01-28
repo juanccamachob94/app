@@ -77,7 +77,7 @@ El modelo relacional que describe la solución al problema se puede observar en 
   - PERCENT: porcentaje de bonificación
   - CV_INVESTMENT_INTERVAL_ID: llave que referencia el ID de la tabla CV_INVESTMENT_INTERVALS para indicar a qué agrupación de intervalos de inversiones y coeficientes de variación pertenece la bonificación.
 #### UNIT_BONUS:
-- **Descripción:** valores definidos para una sola inversión o para coeficientes de variación menores a 0.14 (CV < 0.14)
+- **Descripción:** valores definidos para una sola inversión válida o para coeficientes de variación menores a 0.14 (CV < 0.14)
 - **Atributos:**
   - STDV: desviación estándar poblacional
   - INVESTMENT_INTERVAL_ID: llave que referencia el ID de la tabla INVESTMENT_INTERVALS para indicar el intervalo de inversiones al que pertenece la desviación estándar.
